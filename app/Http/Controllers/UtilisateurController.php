@@ -43,7 +43,7 @@ class UtilisateurController extends Controller
                     ]);
                 }
 
-                return response()->json("true");
+                return response()->json(true);
             } elseif ($request->has("nom") && $request->has("prenom") && $request->has("dateNaissance")) {
                 try {
                     $user->mail = $request->mail;
