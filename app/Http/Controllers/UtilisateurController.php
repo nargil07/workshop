@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entrepreneur;
 use App\Stagiaire;
 use App\Utilisateur;
+use Hamcrest\Util;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -73,6 +74,18 @@ class UtilisateurController extends Controller
                 "error" => "il manque le mail ou le mot de passe"
             ];
             return response()->json($result);
+        }
+    }
+
+    public function connexion(Request $request){
+        if($request->has("mail") && $request->has("pwd")){
+            $user = Utilisateur::where('mail', $request->mail)
+                        ->where('mdp', $request->pwd)->first();
+            if($user != null){
+                return response()->json($user);
+            }else{
+                return response()->json(false);
+            }
         }
     }
 }
